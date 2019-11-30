@@ -1,0 +1,54 @@
+{% extends '_includes/navbar.html' %}
+{% block content %}
+<article class="panel is-primary">
+    <p class="panel-heading">
+        Tambah Budaya
+    </p>
+
+    <div class="panel-block">
+        <div class="container is-fluid" style="margin: 1em">
+            <form action="">
+                <div class="field">
+                    <label class="label">Nama Budaya</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Masukan nama budaya">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Tipe</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Pilih tipe budaya">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Provinsi</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Masukan asal budaya">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">URL Referensi</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Masukan URL referensi">
+                    </div>
+                </div>
+
+                <div class="field is-grouped" style="padding-top:1em;">
+                    <div class="control">
+                        <button class="button is-link">Submit</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-link is-light">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</article>
+{% endblock %}
