@@ -12,12 +12,13 @@ def hello_world():
 
 @app.route('/login')
 def login():
-    print(request.headers)
     ticket = request.args.get("ticket")
+    print("ticket", ticket)
     if ticket is not None:
-        client = get_cas_client("https://budayakb.herokuapp.com/login/")
+        client = get_cas_client("https://budayakb.herokuapp.com/login")
+        print(client)
         sso_profile = authenticate(ticket, client)
-        print(sso_profile)
+        print("sso", sso_profile)
 
 if __name__ == '__main__':
    app.run(debug=True)
