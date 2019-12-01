@@ -1,0 +1,1 @@
+SSO_UI_URL="https://sso.ui.ac.id/cas2/login"
