@@ -44,7 +44,7 @@ def search():
 def login():
     ticket = request.args.get("ticket")
     if ticket is not None:
-        client = get_cas_client(config.BASE_URL)
+        client = get_cas_client(config.BASE_URL + "/login")
         sso_profile = authenticate(ticket, client)
         print(sso_profile)
         if sso_profile is not None:
