@@ -1,2 +1,2 @@
 SSO_UI_URL="https://sso.ui.ac.id/cas2/login"
-BASE_URL = "http://127.0.0.1"
+BASE_URL = "https://budayakb.herokuapp.com/login"
