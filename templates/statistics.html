@@ -1,0 +1,44 @@
+{% extends '_includes/navbar.html' %}
+{% block content %}
+
+<article class="panel is-primary">
+    <p class="panel-heading">
+        Statistik
+    </p>
+
+    <div class="panel-block">
+        {% if stat is defined %}
+        <canvas id="myChart" width="25" height="25"></canvas>
+        {% endif %}
+    </div>
+
+</article>
+
+{% if stat is defined %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script>
+    var data = JSON.parse('{{stat | tojson}}');
+    console.log(data);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(data),
+            datasets: [{
+                data: Object.values(data)
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>
+{% endif %}
+
+{% endblock %}

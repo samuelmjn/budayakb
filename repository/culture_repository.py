@@ -18,6 +18,9 @@ class CultureRepository(object):
                 self.entries[request.name]
                 raise Exception("culture already exists:", request.name)
             except KeyError:
+                request.name = request.name.title()
+                request.type = request.type.title()
+                request.province = request.province.title()
                 self.entries[request.name] = request
 
     # Find All: Returning all cultures in storage
@@ -25,6 +28,10 @@ class CultureRepository(object):
         if len(self.entries) == 0:
             return None
         return (self.entries.values())
+
+    def find_by_name(self, name):
+        res = self.entries[name]
+        return res
 
     # Count All: Returning count of all cultures
     def count_all(self):
@@ -35,24 +42,24 @@ class CultureRepository(object):
     # Keyword will be handled based on its QueryType
     def search(self, keyword, field):
         if field == QueryType.NAME: # Search by Name
-            try:
-                res = self.entries[keyword]
-                return res
-            except ValueError:
-                return None
+            res = []
+            for _, v in self.entries.items():
+                if keyword.lower() in v.name.lower():
+                    res.append(v)
+            return res, len(res)
 
         elif field == QueryType.TYPE: # Search by Type
             res = []
             for _, v in self.entries.items():
-                if v.type == keyword:
-                    res.append(str(v))
+                if keyword.lower() in v.type.lower():
+                    res.append(v)
             return res, len(res)
 
         elif field == QueryType.PROVINCE: # Search by Province
             res = []
             for _, v in self.entries.items():
-                if v.province == keyword:
-                    res.append(str(v))
+                if keyword.lower() in v.province.lower():
+                    res.append(v)
             return res, len(res)
 
     # Delete: delete data from storage by name index
@@ -60,6 +67,14 @@ class CultureRepository(object):
         try:
             del self.entries[name]
         except ValueError:
+            raise Exception("object not found")
+
+    # Update: update data from storage
+    def update(self, req):
+        try:
+            self.entries[req.name]
+            self.entries.update({req.name: req})
+        except KeyError:
             raise Exception("object not found")
     
     # Count by Type: Generating set of types and counting the count of each data type and storing it in a dict

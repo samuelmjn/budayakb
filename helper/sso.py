@@ -15,8 +15,7 @@ def get_cas_client(service_url=None, request=None):
 
 
 def authenticate(ticket, client):
-    username, attributes, a = client.verify_ticket(ticket)
-    print(username, attributes, a)
+    username, attributes, _ = client.verify_ticket(ticket)
 
     if not username:
         return None
