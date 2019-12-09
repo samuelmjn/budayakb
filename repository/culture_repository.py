@@ -14,14 +14,10 @@ class CultureRepository(object):
     # adding existing data will be considered same as updating
     def create(self, requests):
         for request in requests:
-            try:
-                self.entries[request.name]
-                raise Exception("culture already exists:", request.name)
-            except KeyError:
-                request.name = request.name.title()
-                request.type = request.type.title()
-                request.province = request.province.title()
-                self.entries[request.name] = request
+            request.name = request.name.title()
+            request.type = request.type.title()
+            request.province = request.province.title()
+            self.entries[request.name] = request
 
     # Find All: Returning all cultures in storage
     def find_all(self):

@@ -29,7 +29,7 @@
                             <label class="label">Nama Budaya</label>
                             <div class="control">
                                 <input class="input" id="name" name="name" type="text"
-                                    value="{{obj.name if obj is defined}}" placeholder="Masukan nama budaya">
+                                    value="{{obj.name if obj is defined}}" placeholder="Masukan nama budaya" {% if page_type == "edit" %} readonly {% endif %}>
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                                 </span>
                             </label>
                             <div class="control" style="padding-left:5px;">
-                                <button class="button is-link">Submit</button>
+                                <button class="button is-link">Upload</button>
                             </div>
                         </div>
                     </form>

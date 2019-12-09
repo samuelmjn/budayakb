@@ -1,0 +1,38 @@
+{% extends '_includes/navbar.html' %}
+{% block content %}
+
+{% if get_flashed_messages()|length != 0 %}
+<div class="notification is-warning">
+    <button class="delete"></button>
+    {{get_flashed_messages()[0]}}
+</div>
+{% endif %}
+
+<article class="panel is-primary">
+    <p class="panel-heading">
+        Home
+    </p>
+
+    <div class="panel-block">
+
+        <div class="content" style="width:100%">
+            <div class="level"></div>
+            <h1 style="padding:10px"><b>Welcome</b> to BudayaKB Lite v2.0.0. Here's what you can do</h1>
+            <hr>
+
+            <div class="level-item">
+                <div class="columns is-mobile">
+                    <div class="column"><a href="{{ url_for('search') }}" class="button is-primary is-rounded is-large"><i class="fas fa-search"></i> Cari Budaya</a></div>
+                    <div class="column"><a href="{{ url_for('add') }}" class="button is-primary is-rounded is-large"><i class="fas fa-plus-circle"></i> Tambah Budaya</a></div>
+                    <div class="column"><a href="{{ url_for('add') }}" class="button is-primary is-rounded is-large"><i class="fas fa-file-import"></i> Impor Budaya</a></div>
+                    <div class="column"><a href="{{ url_for('stat') }}" class="button is-primary is-rounded is-large"><i class="fas fa-table"></i> Statistik Budaya</a></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</article>
+
+{% endblock %}

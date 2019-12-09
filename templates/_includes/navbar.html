@@ -10,13 +10,14 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container is-fullhd">
         <section class="section">
             <div class="container">
                 <nav class="navbar" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/">
-                            <img src="https://acakadul.files.wordpress.com/2013/08/makara-ui-fasilkom.png" width="25" height="25">
+                            <img src="https://acakadul.files.wordpress.com/2013/08/makara-ui-fasilkom.png" width="25"
+                                height="25">
                         </a>
 
                         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -29,33 +30,62 @@
 
                     <div id="navbarBasicExample" class="navbar-menu">
                         <div class="navbar-start">
-                            <a href="/" class="navbar-item">
+                            <a href="/" class="navbar-item is-hoverable">
                                 Home
                             </a>
 
-                            <a href="{{ url_for('search') }}" class="navbar-item">
+                            <a href="{{ url_for('search') }}" class="navbar-item is-hoverable">
                                 Cari Budaya
                             </a>
 
-                            <a href="{{ url_for('add') }}" class="navbar-item">
+                            {% if get_current_user() != None %}
+                            <a href="{{ url_for('add') }}" class="navbar-item is-hoverable">
                                 Tambah Budaya
                             </a>
+                            {% endif %}
 
-                            <a href="{{ url_for('stat') }}" class="navbar-item">
-                                Statistik
-                            </a>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a href="{{ url_for('stat') }}" class="navbar-link">
+                                    Statistik
+                                </a>
+                                <div class="navbar-dropdown">
+                                    <a href="{{ url_for('stat') }}" class="navbar-item">
+                                        Semua
+                                    </a>
+                                    <a class="navbar-item" href="{{ url_for('statistics', name="type") }}">
+                                        Bdsk. Tipe
+                                    </a>
+                                    <a class="navbar-item" href="{{ url_for('statistics', name="province") }}">
+                                        Bdsk. Daerah
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="navbar-end">
-                            <div class="navbar-item">
+                            <div class="navbar-item is-hoverable has-dropdown">
+                                {% if get_current_user() == None %}
                                 <div class="buttons">
-                                    <a onclick="window.open('https://sso.ui.ac.id/cas2/login?service={{ request.host_url }}login', 'newwindow', 'width=500, height=450'); return false;" class="button is-primary">
+                                    <a onclick="window.open('https://sso.ui.ac.id/cas2/login?service={{ request.host_url }}login', 'newwindow', 'width=500, height=450'); return false;"
+                                        class="button is-primary">
                                         <strong>Log in</strong>
                                     </a>
                                 </div>
-                                {% if is_authenticated() == True %}
-                                <b>Hello!</b>
                                 {% endif %}
+                                {% if get_current_user() != None %}
+                                <div class="navbar-item has-dropdown is-hoverable">
+                                    <a href="{{ url_for('stat') }}" class="navbar-link">
+                                        <b>Hello</b>, {{get_current_user()}}
+                                    </a>
+                                    <div class="navbar-dropdown">
+                                        <a href="{{ url_for('logout') }}" class="navbar-item">
+                                            Log Out
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -64,24 +94,20 @@
         </section>
 
         <section class="section">
-            {% block content%}{% endblock %}
-          
+            {% block content %}{% endblock %}
+
         </section>
 
         <footer class="footer is-fluid">
             <div class="content has-text-centered">
                 <p>
-                    <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is
-                    licensed
-                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                    is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                    <b>BudayaKB v2.0.0</b> by <a href="https://www.github.com/samuelmjn">Samuel Mulatua</a>
                 </p>
             </div>
         </footer>
     </div>
 </body>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bulmajs@0.0.2/dist/bulmajs.min.js"></script>
 
 </html>

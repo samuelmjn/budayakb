@@ -8,6 +8,8 @@
 </div>
 {% endif %}
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
 <article class="panel is-primary">
     <p class="panel-heading">
         Cari Budaya
@@ -40,7 +42,7 @@
                         <div class="field" style="margin: 1%;">
                             <br>
                             <div class="control">
-                                <button class="button is-link">Submit</button>
+                                <button class="button is-link">Cari</button>
                             </div>
                         </div>
                     </div>
@@ -49,13 +51,16 @@
 
             {% if result is defined %}
             <div class="table-container is-fluid" style="margin: 2em">
-                <table class="table is-hoverable" style="width:100%">
+                <table id="result-table" class="table is-hoverable"
+                    style="width:100%; table-layout: fixed; word-wrap:break-word;">
                     <thead>
                         <td>Nama</td>
                         <td>Tipe</td>
                         <td>Asal</td>
                         <td>URL</td>
-                        <td></td>
+                        {% if get_current_user() != None %}
+                        <td style="width:20px"></td>
+                        {% endif %}
                     </thead>
 
                     <tbody>
@@ -64,10 +69,12 @@
                             <td>{{i.name}}</td>
                             <td>{{i.type}}</td>
                             <td>{{i.province}}</td>
-                            <td>{{i.url}}</td>
-                            <td><a href="/edit/{{i.name}}"><i class="fas fa-pencil-alt"></i></a>
+                            <td><a href="{{i.url}}">{{i.url}}</a></td>
+                            {% if get_current_user() != None %}
+                            <td style="width:20px"><a href="/edit/{{i.name}}"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="/delete/{{i.name}}"><i class="fas fa-trash-alt"></i></a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -80,4 +87,12 @@
     </div>
 
 </article>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#result-table').DataTable({searching: false, responsive: true});
+    });
+</script>
 {% endblock %}

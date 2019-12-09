@@ -1,7 +1,7 @@
 from flask import request
 
-def is_authenticated():
+def get_current_user():
     current_user = request.cookies.get('user_name')
     if current_user:
-        return True
-    return False
+        return current_user
+    return None
