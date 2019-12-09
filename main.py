@@ -131,10 +131,6 @@ def import_culture():
         flash("Data berhasil diimpor")
         return redirect('/')
 
-@app.route('/statistics')
-def stat():
-    return redirect('/statistics/all')
-
 @app.route('/statistics/<name>')
 def statistics(name):
     if name == "type":
@@ -143,10 +139,6 @@ def statistics(name):
     elif name == "province":
         res = r.count_by_province()
         return render_template('statistics.html', stat = res)
-    elif name == "all":
-        return render_template('statistics.html')
-    else:
-        return redirect('/statistics/all')
 
 @app.errorhandler(500)
 def internal_error(error):
@@ -158,14 +150,12 @@ def not_found(error):
     flash("Oops! Page not found")
     return redirect('/')
 
-
 def persist_to_storage(storage_dir: str):
     file = open(storage_dir, "w")
     res = [str(i) for i in r.find_all()]
     content = '\n'.join(res)
     file.write(content)
     file.close()
-
 
 if __name__ == '__main__':
     r = CultureRepository()
